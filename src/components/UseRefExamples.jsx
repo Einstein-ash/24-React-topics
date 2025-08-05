@@ -93,6 +93,7 @@ const UseRefExamples = () => {
     console.log('Input placeholder:', input.placeholder);
   };
   
+
   return (
     <div>
       <input
