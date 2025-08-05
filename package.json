@@ -31,5 +31,14 @@
     "interview"
   ],
   "author": "Your Name",
-  "license": "MIT"
-} 
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Einstein-ash/reactjcss.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Einstein-ash/reactjcss/issues"
+  },
+  "homepage": "https://github.com/Einstein-ash/reactjcss#readme"
+}

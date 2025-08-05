@@ -11,13 +11,24 @@ const UseRefExamples = () => {
           or to directly access DOM elements.
         </p>
         <div className="code-block">
-{`const ref = useRef(initialValue);
 
-// JavaScript Concepts Used:
-// 1. Mutable References - Storing references to values or DOM elements
-// 2. DOM Manipulation - Direct access to HTML elements
-// 3. Closures - Functions that remember their scope
-// 4. Event Handling - Managing focus, scroll, and other DOM events`}
+<p>
+  const ref = useRef(initialValue);
+  <br />
+  <br />
+  ---JavaScript Concepts Used:---
+  <br />
+  ------------------:-------------------
+  <br />
+  1. Mutable References - Storing references to values or DOM elements
+  <br />
+  2. DOM Manipulation - Direct access to HTML elements
+  <br />
+  3. Closures - Functions that remember their scope
+  <br />
+  4. Event Handling - Managing focus, scroll, and other DOM events
+</p>
+
         </div>
       </div>
 
@@ -27,6 +38,7 @@ const UseRefExamples = () => {
         <p>Using useRef to store a value that persists across renders without causing re-renders.</p>
         <ValueRef />
         <div className="code-block">
+          
 {`function ValueRef() {
   const [count, setCount] = useState(0);
   const previousCountRef = useRef(0);
@@ -271,7 +283,12 @@ function ValueRef() {
   renderCountRef.current = renderCountRef.current + 1;
   
   useEffect(() => {
+    console.log("prev.curr -(before setting ) ", previousCountRef.current)
+    console.log("count abhi :=", count);
     previousCountRef.current = count;
+    console.log("prev.curr -(after setting ) ", previousCountRef.current)
+
+
   });
   
   return (

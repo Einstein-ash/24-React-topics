@@ -46,6 +46,7 @@ const UseEffectExamples = () => {
     </div>
   );
 }
+  
 
 // JavaScript Concepts:
 // - Template Literals: \`Count: \${count}\`
@@ -89,6 +90,7 @@ const UseEffectExamples = () => {
     </div>
   );
 }
+  
 
 // JavaScript Concepts:
 // - Logical Operators: && for conditional rendering
@@ -277,13 +279,17 @@ function CleanupUseEffect() {
         width: window.innerWidth,
         height: window.innerHeight
       });
+      console.log("resize", window.MouseEvent, window.innerHeight);
     };
     
     window.addEventListener('resize', handleResize);
-    
+
+    // window.addEventListener('click', handleResize);  //-- faltu testing by ash
+
     // Cleanup function
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mouse', handleResize);
+      console.log("clean clean up -----")
     };
   }, []); // Empty dependency array = runs only once
   
@@ -316,6 +322,18 @@ function DataFetchingUseEffect() {
         setError('Failed to fetch posts');
         console.error('Error:', err);
       } finally {
+
+        // -------- below commented code is by -${Ash}--------
+
+        // const delay = (ms) =>  new Promise((resolve) => setTimeout(resolve,ms));
+        
+        // async function run(){
+        //   console.log("start->", new Date().toLocaleTimeString());
+        //   await delay(6000); 
+        //   console.log("end->", new Date().toLocaleTimeString());
+        // }
+
+        // await run();
         setLoading(false);
       }
     };

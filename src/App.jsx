@@ -52,6 +52,12 @@ function App() {
     polling: { title: 'Polling & Real-time', component: PollingExamples }
   };
 
+  const showEntries = () =>{
+    console.log("choco");
+    console.log("values -> ", Object.values(sections));
+    console.log("entries -> ", Object.entries(sections));
+  }
+
   const ActiveComponent = sections[activeSection].component;
 
   return (
@@ -64,6 +70,7 @@ function App() {
       </nav>
 
       <div className="section">
+        <button onClick={showEntries} className='button'>entries </button>
         <h2>📚 Navigation</h2>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
           {Object.entries(sections).map(([key, { title }]) => (
