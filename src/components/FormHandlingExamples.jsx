@@ -6,6 +6,7 @@ const FormHandlingExamples = () => (
       <h3>🎯 Form Handling Overview</h3>
       <p>React forms can be controlled (state-driven) or uncontrolled (ref-driven). You can validate, handle multiple fields, and manage submission.</p>
       <div className="code-block">
+
 {`<input value={value} onChange={handleChange} /> // Controlled
 <input ref={inputRef} /> // Uncontrolled
 <form onSubmit={handleSubmit} />
@@ -59,7 +60,10 @@ function ControlledInput() {
 function UncontrolledInput() {
   const inputRef = useRef();
   const [value, setValue] = useState('');
-  const handleShow = () => setValue(inputRef.current.value);
+  const handleShow = async () => {
+    setValue(inputRef.current.value);
+  }
+  
   return (
     <div>
       <input ref={inputRef} className="input" placeholder="Uncontrolled input..." />
@@ -84,7 +88,9 @@ function MultiFieldForm() {
 function ValidationForm() {
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+
   const handleSubmit = e => {
     e.preventDefault();
     if (!form.username || !form.password) {

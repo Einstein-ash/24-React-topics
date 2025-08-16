@@ -83,7 +83,7 @@ function Greeting({ name, age, isActive, hobbies, onIncrement }) {
       <UserCard 
         name="Alice"
         role="Developer"
-        avatar="https://via.placeholder.com/100"
+        avatar="https://api.dicebear.com/9.x/adventurer/svg?seed=Eliza"
       />
       <UserCard 
         name="Bob"
@@ -101,7 +101,7 @@ function Greeting({ name, age, isActive, hobbies, onIncrement }) {
 function UserCard({ 
   name, 
   role = 'User', 
-  avatar = 'https://via.placeholder.com/100?text=U',
+  avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=Eliza',
   showDetails = false 
 }) {
   return (
@@ -355,6 +355,8 @@ function BasicProps() {
 }
 
 function Greeting({ name, age, isActive, hobbies, onIncrement }) {
+
+  console.log("greeting renders")
   return (
     <div style={{ 
       padding: '1rem', 
@@ -377,15 +379,18 @@ function DefaultProps() {
       <UserCard 
         name="Alice"
         role="Developer"
-        avatar="https://via.placeholder.com/100"
-      />
+        avatar="https://api.dicebear.com/9.x/adventurer/svg?seed=Eliza"
+        />
       <UserCard 
         name="Bob"
+        avatar="https://api.dicebear.com/9.x/adventurer/svg?seed=Luis"
+        // showDetails={true}
         // role and avatar will use defaults
-      />
+        />
       <UserCard 
         name="Charlie"
         role="Designer"
+        avatar="https://api.dicebear.com/9.x/adventurer/svg?seed=Vivian"
         showDetails={true}
       />
     </div>
@@ -395,7 +400,7 @@ function DefaultProps() {
 function UserCard({ 
   name, 
   role = 'User', 
-  avatar = 'https://via.placeholder.com/100?text=U',
+  avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=Vivian',
   showDetails = false 
 }) {
   return (
@@ -468,7 +473,7 @@ function Card({ title, children, theme = 'light' }) {
   );
 }
 
-function Modal({ isOpen, onClose, children }) {
+function Modal({ isOpen, children }) {
   if (!isOpen) return null;
   
   return (
@@ -478,7 +483,7 @@ function Modal({ isOpen, onClose, children }) {
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: 'rgba(0, 0, 0, 0.66)',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -504,7 +509,7 @@ function ComplexProps() {
     name: 'John Doe',
     email: 'john@example.com',
     profile: {
-      avatar: 'https://via.placeholder.com/150',
+      avatar: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Easton',
       bio: 'Full-stack developer with 5 years of experience',
       skills: ['React', 'Node.js', 'Python', 'MongoDB']
     },
@@ -569,7 +574,7 @@ function PostList({ posts, onLike }) {
   return (
     <div>
       <h3>Posts</h3>
-      {posts.map(post => (
+      {posts.map((post) => (
         <div key={post.id} style={{
           border: '1px solid #ddd',
           padding: '1rem',

@@ -67,9 +67,11 @@ function Child() {
 
 function UpdateEffect() {
   const [count, setCount] = useState(0);
+  
   useEffect(() => {
     if (count > 0) document.title = `Count: ${count}`;
-  }, [count]);
+  },[count]);
+
   return (
     <div>
       <button onClick={() => setCount(count + 1)} className="button">Increment</button>

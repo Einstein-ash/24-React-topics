@@ -44,7 +44,10 @@ const ForwardRefExamples = () => (
   </div>
 );
 
-const FancyInput = forwardRef((props, ref) => <input ref={ref} className="input" {...props} />);
+const FancyInput = forwardRef ((props, ref) => (
+  <input ref={ref} className="input" {...props} />
+));
+
 
 function FocusInputExample() {
   const inputRef = useRef();

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useRef } from 'react';
 
 const ConditionalRenderingExamples = () => (
   <div>
@@ -63,30 +63,34 @@ function LogicalAndExample() {
   return (
     <div>
       <button onClick={() => setCount(count + 1)} className="button">Increment</button>
-      {count > 0 && <p>Count is positive: {count}</p>}
+
+      <button onClick={() => setCount(count - 1)} className="button">Decrement</button>
+      
+      <p>Count is {count >= 0 ? `positive`: `negative`} : {count} </p>
     </div>
   );
 }
 
 function SwitchExample() {
   const [status, setStatus] = useState('idle');
-  let content;
+ const contentRef = useRef(null);
+
   switch (status) {
     case 'loading':
-      content = <p>Loading...</p>;
+      contentRef.current = <p>Loading...</p>;
       break;
     case 'success':
-      content = <p>Data loaded successfully!</p>;
+      contentRef.current = <p>Data loaded successfully!</p>;
       break;
     case 'error':
-      content = <p style={{ color: '#e74c3c' }}>Error loading data.</p>;
+      contentRef.current = <p style={{ color: '#e74c3c' }}>Error loading data.</p>;
       break;
     default:
-      content = <p>Idle state.</p>;
+      contentRef.current = <p>Idle state.</p>;
   }
   return (
     <div>
-      {content}
+      {contentRef.current}
       <div>
         <button onClick={() => setStatus('idle')} className="button">Idle</button>
         <button onClick={() => setStatus('loading')} className="button">Loading</button>

@@ -272,17 +272,19 @@ function BasicCallback() {
   
   // Memoized callback - only recreates when count changes
   const incrementCount = useCallback(() => {
+    console.log("inc")
     setCount(prevCount => prevCount + 1);
   }, []); // Empty dependency array - never recreates
   
   const decrementCount = useCallback(() => {
+        console.log("dec")
     setCount(prevCount => prevCount - 1);
   }, []); // Empty dependency array - never recreates
   
   const resetCount = useCallback(() => {
     setCount(0);
   }, []); // Empty dependency array - never recreates
-  
+  console.log("render......")
   return (
     <div>
       <p>Count: <strong>{count}</strong></p>
@@ -318,6 +320,7 @@ function ParameterCallback() {
   
   // Memoized callback with parameters
   const addItem = useCallback((itemName) => {
+
     setItems(prevItems => [
       ...prevItems,
       { id: Date.now(), name: itemName, completed: false }

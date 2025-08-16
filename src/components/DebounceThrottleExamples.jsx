@@ -158,7 +158,7 @@ function DebouncedButton() {
   const debouncedClick = useCallback(() => {
     const timeoutId = setTimeout(() => {
       setDebouncedCount(prev => prev + 1);
-    }, 1000);
+    }, 2000);
 
     return () => clearTimeout(timeoutId);
   }, []);

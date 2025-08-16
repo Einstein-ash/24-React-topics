@@ -119,7 +119,7 @@ function StatusChecking() {
   const checkStatus = async () => {
     try {
       // Simulate status check
-      await new Promise(resolve => setTimeout(resolve, 200));
+      await new Promise(resolve => setTimeout(resolve, 500));
       
       const statuses = ['idle', 'processing', 'completed', 'failed'];
       const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
@@ -172,24 +172,29 @@ function StatusChecking() {
 function RealTimeCounter() {
   const [counter, setCounter] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [interval, setInterval] = useState(1000);
+  const [intervalTime, setIntervalTime] = useState(1000);
+  const intervalIdRef = useRef(null);
 
   useEffect(() => {
-    let intervalId;
     
     if (isRunning) {
-      intervalId = setInterval(() => {
+      console.log("interval set- " )
+      intervalIdRef.current = setInterval(()=>{
         setCounter(prev => prev + 1);
-      }, interval);
+      }, intervalTime);
     }
 
     return () => {
-      if (intervalId) clearInterval(intervalId);
+      if ( intervalIdRef.current ) {
+        console.log("real time cleared -")
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+      }
     };
-  }, [isRunning, interval]);
+  }, [isRunning, intervalTime]);
 
-  const handleIntervalChange = (e) => {
-    setInterval(parseInt(e.target.value));
+  const handleIntervalTimeChange = (e) => {
+    setIntervalTime(parseInt(e.target.value));
   };
 
   return (
@@ -201,7 +206,7 @@ function RealTimeCounter() {
       
       <div style={{ marginBottom: '1rem' }}>
         <label>Interval (ms): </label>
-        <select value={interval} onChange={handleIntervalChange} className="input">
+        <select value={intervalTime} onChange={handleIntervalTimeChange} className="input">
           <option value={100}>100ms</option>
           <option value={500}>500ms</option>
           <option value={1000}>1 second</option>

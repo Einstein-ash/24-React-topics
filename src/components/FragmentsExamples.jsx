@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const FragmentsExamples = () => (
   <div>
@@ -96,9 +96,12 @@ function TableRows() {
 }
 
 function ConditionalFragments() {
-  const show = true;
+  const [show,setShow] = useState(true);
+
   return (
     <>
+
+    <button className='button' onClick={()=> setShow(!show)}>Toggle</button>
       {show && (
         <>
           <h4>Shown!</h4>

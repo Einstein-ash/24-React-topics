@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 
 const MemoExamples = () => (
   <div>
@@ -50,10 +50,17 @@ const PureComponent = memo(({ value }) => {
 });
 function PureMemoExample() {
   const [value, setValue] = useState(0);
+  const [otherValue, setOtherValue] = useState(0);
   return (
     <div>
       <PureComponent value={value} />
-      <button onClick={() => setValue(value + 1)} className="button">Increment</button>
+      <button onClick={() => setValue(value + 1)} className="button">Increment -&gt; value</button>
+
+      <button onClick={() => setOtherValue(otherValue + 1)} className="button">Increment -&gt; <b>Other value</b></button>
+
+      <p> <b>Note :</b> Only increasing "value" , pure component is rendered, (because prop value has change, that is passed ) </p>
+      <p> <b>but</b> increasing "other Value" , not re-rendring the pure component </p>
+      <p>Check console</p>
     </div>
   );
 }
@@ -72,13 +79,25 @@ function PropsChangeExample() {
     </div>
   );
 }
+
+const Child = memo(({ count }) => {
+
+  useEffect(()=>{
+    console.log("Child rendered");
+  })
+  return <div>Child count: {count}</div>;
+  
+});
+
 function ChildOptimizationExample() {
   const [parentCount, setParentCount] = useState(0);
   const [childCount, setChildCount] = useState(0);
-  const Child = memo(({ count }) => {
-    console.log('Child rendered');
-    return <div>Child count: {count}</div>;
-  });
+
+  useEffect(()=>{
+    console.log("pareent rendered")
+
+
+  })
   return (
     <div>
       <Child count={childCount} />
@@ -88,14 +107,16 @@ function ChildOptimizationExample() {
     </div>
   );
 }
+
+const Expensive = memo(() => {
+  console.log('Expensive rendered');
+  let total = 0;
+  for (let i = 0; i < 1e7; i++) total += i;
+  return <div>Expensive calculation: {total}</div>;
+});
+
 function ExpensiveRenderExample() {
   const [count, setCount] = useState(0);
-  const Expensive = memo(() => {
-    console.log('Expensive rendered');
-    let total = 0;
-    for (let i = 0; i < 1e7; i++) total += i;
-    return <div>Expensive calculation: {total}</div>;
-  });
   return (
     <div>
       <Expensive />

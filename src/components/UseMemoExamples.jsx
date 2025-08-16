@@ -16,7 +16,7 @@ const UseMemoExamples = () => {
 }, [a, b]);
 
 // JavaScript Concepts Used:
-// 1. Memoization - Caching expensive calculations
+// 1. Memoization - Caching expensive calculations 
 // 2. Dependency Arrays - Controlling when to recalculate
 // 3. Arrow Functions - Function expressions
 // 4. Performance Optimization - Avoiding unnecessary computations`}
@@ -203,7 +203,7 @@ function ComplexObject() {
         return 'Good evening!';
       }
     };
-  }, [count, theme]);
+  }, [count]);
   
   return (
     <div>
