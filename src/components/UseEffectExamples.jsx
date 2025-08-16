@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react';
 
 const UseEffectExamples = () => {
   return (
@@ -13,12 +13,17 @@ const UseEffectExamples = () => {
         </p>
         <div className="code-block">
           <pre>
-            {`useEffect(() => {
-  // Side effect code
-  return () => {
-    // Cleanup code (optional)
+            {`
+useEffect (
+  () => {
+    // Side effect code
+    return () => {
+      // Cleanup code (optional)
     };
-    }, [dependencies]);
+  },
+  [dependencies]
+);
+
     
     // JavaScript Concepts Used:
     // 1. Arrow Functions - Function expressions
@@ -36,18 +41,19 @@ const UseEffectExamples = () => {
         <BasicUseEffect />
         <div className="code-block">
           <pre>
-            {`function BasicUseEffect() {
-  const [count, setCount] = useState(0);
+            {`
+  function BasicUseEffect() {
+    const [count, setCount] = useState(0);
   
-  useEffect(() => {
-    console.log('Component rendered, count is:', count);
-    document.title = \`Count: \${count}\`;
-    }); // No dependency array = runs after every render
+    useEffect(() => {
+        console.log('Component rendered, count is:', count);
+        document.title = \`Count: \${count}\`;
+      }); // No dependency array = runs after every render
     
     return (
       <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
+         <p>Count: {count}</p>
+          <button onClick={() => setCount(count + 1)}>Increment</button>
       </div>
       );
       }
@@ -68,32 +74,36 @@ const UseEffectExamples = () => {
         <DependencyUseEffect />
         <div className="code-block">
           <pre>
-            {`function DependencyUseEffect() {
+            {`
+  function DependencyUseEffect() {
   const [name, setName] = useState('');
   const [age, setAge] = useState(0);
   const [greeting, setGreeting] = useState('');
   
   useEffect(() => {
     if (name && age) {
-      setGreeting(\`Hello \${name}, you are \${age} years old!\`);
+        setGreeting(\`Hello \${name}, you are \${age} years old!\`);
       }
-      }, [name, age]); // Only runs when name or age changes
+    }, [name, age]); // Only runs when name or age changes
       
       return (
         <div>
-        <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        />
-        <input
-        type="number"
-        placeholder="Age"
-        value={age}
-        onChange={(e) => setAge(parseInt(e.target.value) || 0)}
-        />
-        <p>{greeting}</p>
+          <input
+           type="text"
+           placeholder="Name"
+           value={name}
+           onChange={(e) => setName(e.target.value)}
+         />
+
+         <input
+            type="number"
+            placeholder="Age"
+            value={age}
+            onChange={(e) => setAge(parseInt(e.target.value) || 0)}
+          />
+
+          <p>{greeting}</p>
+
         </div>
         );
         }
@@ -116,39 +126,40 @@ const UseEffectExamples = () => {
         <CleanupUseEffect />
         <div className="code-block">
           <pre>
-            {`function CleanupUseEffect() {
-  const [windowSize, setWindowSize] = useState({
+            {`
+  function CleanupUseEffect () {
+  const [windowSize, setWindowSize] = useState ({
     width: window.innerWidth,
-    height: window.innerHeight
-    });
-    
-    useEffect(() => {
-      const handleResize = () => {
-        setWindowSize({
-          width: window.innerWidth,
-          height: window.innerHeight
-          });
-          };
-          
-          window.addEventListener('resize', handleResize);
-          
-          // Cleanup function
-          return () => {
-            window.removeEventListener('resize', handleResize);
-            };
-            }, []); // Empty dependency array = runs only once
+    height: window.innerHeight,
+  });
+
+  useEffect (() => {
+    const handleResize = () => {
+      setWindowSize ({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener ('resize', handleResize);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener ('resize', handleResize);
+    };
+  }, []); // Empty dependency array = runs only once
+
+  return (
+    <div>
+      <p>Window size: {windowSize.width} x {windowSize.height}</p>
+    </div>
+  );
+}
             
-            return (
-              <div>
-              <p>Window size: {windowSize.width} x {windowSize.height}</p>
-              </div>
-              );
-              }
-              
-              // JavaScript Concepts:
-              // - Event Listeners: addEventListener, removeEventListener
-              // - Window API: window.innerWidth, window.innerHeight
-              // - Object Literals: Creating objects with properties`}
+      // JavaScript Concepts:
+      // - Event Listeners: addEventListener, removeEventListener
+      // - Window API: window.innerWidth, window.innerHeight
+      // - Object Literals: Creating objects with properties`}
           </pre>
         </div>
       </div>
@@ -160,45 +171,47 @@ const UseEffectExamples = () => {
         <DataFetchingUseEffect />
         <div className="code-block">
           <pre>
-            {`function DataFetchingUseEffect() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  
-  useEffect(() => {
+            {`
+function DataFetchingUseEffect () {
+  const [posts, setPosts] = useState ([]);
+  const [loading, setLoading] = useState (false);
+  const [error, setError] = useState (null);
+
+  useEffect (() => {
     const fetchPosts = async () => {
-      setLoading(true);
-      setError(null);
-      
+      setLoading (true);
+      setError (null);
+
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
-        const data = await response.json();
-        setPosts(data);
-        } catch (err) {
-          setError('Failed to fetch posts');
-          console.error('Error:', err);
-          } finally {
-            setLoading(false);
-            }
-            };
-            
-            fetchPosts();
-            }, []); // Empty array = fetch only once on mount
-            
+        const response = await fetch (
+          'https://jsonplaceholder.typicode.com/posts?_limit=5'
+        );
+        const data = await response.json ();
+        setPosts (data);
+      } catch (err) {
+        setError ('Failed to fetch posts');
+        console.error ('Error:', err);
+      } finally {
+        setLoading (false);
+      }
+    };
+
+    fetchPosts ();
+  }, []); // Empty array = fetch only once on mount
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  
+
   return (
     <div>
-    <h4>Posts:</h4>
-    <ul>
-    {posts.map(post => (
-      <li key={post.id}>{post.title}</li>
-      ))}
+      <h4>Posts:</h4>
+      <ul>
+        {posts.map (post => <li key={post.id}>{post.title}</li>)}
       </ul>
-      </div>
-      );
-      }
+    </div>
+  );
+}
+
       
       // JavaScript Concepts:
       // - Async/Await: Modern promise handling
@@ -253,21 +266,21 @@ const UseEffectExamples = () => {
 };
 
 // Component implementations
-function BasicUseEffect() {
-  const [count, setCount] = useState(0);
+function BasicUseEffect () {
+  const [count, setCount] = useState (0);
 
-  useEffect(() => {
-    console.log("Component rendered, count is:", count);
+  useEffect (() => {
+    console.log ('Component rendered, count is:', count);
     document.title = `Count: ${count}`;
   }); // No dependency array = runs after every render
 
   return (
     <div>
       <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)} className="button">
+      <button onClick={() => setCount (count + 1)} className="button">
         Increment
       </button>
-      <button onClick={() => setCount(0)} className="button">
+      <button onClick={() => setCount (0)} className="button">
         Reset
       </button>
       <p>
@@ -277,18 +290,21 @@ function BasicUseEffect() {
   );
 }
 
-function DependencyUseEffect() {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
-  const [greeting, setGreeting] = useState("");
+function DependencyUseEffect () {
+  const [name, setName] = useState ('');
+  const [age, setAge] = useState (0);
+  const [greeting, setGreeting] = useState ('');
 
-  useEffect(() => {
-    if (name && age) {
-      setGreeting(`Hello ${name}, you are ${age} years old!`);
-    } else {
-      setGreeting("");
-    }
-  }, [name, age]); // Only runs when name or age changes
+  useEffect (
+    () => {
+      if (name && age) {
+        setGreeting (`Hello ${name}, you are ${age} years old!`);
+      } else {
+        setGreeting ('');
+      }
+    },
+    [name, age]
+  ); // Only runs when name or age changes
 
   return (
     <div>
@@ -296,51 +312,51 @@ function DependencyUseEffect() {
         type="text"
         placeholder="Name"
         value={name}
-        onChange={(e) => setName(e.target.value)}
+        onChange={e => setName (e.target.value)}
         className="input"
       />
       <input
         type="number"
         placeholder="Age"
         value={age}
-        onChange={(e) => setAge(parseInt(e.target.value) || 0)}
+        onChange={e => setAge (parseInt (e.target.value) || 0)}
         className="input"
       />
-      <p style={{ color: "#27ae60", fontWeight: "bold" }}>{greeting}</p>
+      <p style={{color: '#27ae60', fontWeight: 'bold'}}>{greeting}</p>
     </div>
   );
 }
 
-function CleanupUseEffect() {
-  const [windowSize, setWindowSize] = useState({
+function CleanupUseEffect () {
+  const [windowSize, setWindowSize] = useState ({
     width: window.innerWidth,
     height: window.innerHeight,
   });
 
-  useEffect(() => {
+  useEffect (() => {
     const handleResize = () => {
-      setWindowSize({
+      setWindowSize ({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-      console.log("resize", window.MouseEvent, window.innerHeight);
+      console.log ('resize', window.MouseEvent, window.innerHeight);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener ('resize', handleResize);
 
     // window.addEventListener('click', handleResize);  //-- faltu testing by ash
 
     // Cleanup function
     return () => {
-      window.removeEventListener("mouse", handleResize);
-      console.log("clean clean up -----");
+      window.removeEventListener ('mouse', handleResize);
+      console.log ('clean clean up -----');
     };
   }, []); // Empty dependency array = runs only once
 
   return (
     <div>
       <p>
-        Window size: <strong>{windowSize.width}</strong> x{" "}
+        Window size: <strong>{windowSize.width}</strong> x{' '}
         <strong>{windowSize.height}</strong>
       </p>
       <p>
@@ -350,28 +366,28 @@ function CleanupUseEffect() {
   );
 }
 
-function DataFetchingUseEffect() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+function DataFetchingUseEffect () {
+  const [posts, setPosts] = useState ([]);
+  const [loading, setLoading] = useState (false);
+  const [error, setError] = useState (null);
 
-  useEffect(() => {
+  useEffect (() => {
     const fetchPosts = async () => {
-      setLoading(true);
-      setError(null);
+      setLoading (true);
+      setError (null);
 
       try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/posts?_limit=5"
+        const response = await fetch (
+          'https://jsonplaceholder.typicode.com/posts?_limit=5'
         );
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error ('Network response was not ok');
         }
-        const data = await response.json();
-        setPosts(data);
+        const data = await response.json ();
+        setPosts (data);
       } catch (err) {
-        setError("Failed to fetch posts");
-        console.error("Error:", err);
+        setError ('Failed to fetch posts');
+        console.error ('Error:', err);
       } finally {
         // -------- below commented code is by -${Ash}--------
 
@@ -384,40 +400,40 @@ function DataFetchingUseEffect() {
         // }
 
         // await run();
-        setLoading(false);
+        setLoading (false);
       }
     };
 
-    fetchPosts();
+    fetchPosts ();
   }, []); // Empty array = fetch only once on mount
 
   if (loading) return <p>Loading posts...</p>;
-  if (error) return <p style={{ color: "#e74c3c" }}>Error: {error}</p>;
+  if (error) return <p style={{color: '#e74c3c'}}>Error: {error}</p>;
 
   return (
     <div>
       <h4>Posts from API:</h4>
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {posts.map((post) => (
+      <ul style={{listStyle: 'none', padding: 0}}>
+        {posts.map (post => (
           <li
             key={post.id}
             style={{
-              padding: "0.5rem",
-              margin: "0.5rem 0",
-              border: "1px solid #ddd",
-              borderRadius: "4px",
-              backgroundColor: "#f8f9fa",
+              padding: '0.5rem',
+              margin: '0.5rem 0',
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              backgroundColor: '#f8f9fa',
             }}
           >
             <strong>{post.title}</strong>
             <p
               style={{
-                margin: "0.5rem 0 0 0",
-                fontSize: "0.9rem",
-                color: "#666",
+                margin: '0.5rem 0 0 0',
+                fontSize: '0.9rem',
+                color: '#666',
               }}
             >
-              {post.body.substring(0, 100)}...
+              {post.body.substring (0, 100)}...
             </p>
           </li>
         ))}
